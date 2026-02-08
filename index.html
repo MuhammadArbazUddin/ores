@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ores - E-Girl Developer & Artist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="./1.webp" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #ffffff 100%);
+            overflow-x: hidden;
+        }
+
+        .logo-text {
+            font-family: 'Pacifico', cursive;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #ec407a, #f48fb1, #ff6ec7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px -12px rgba(236, 64, 122, 0.4);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-in-bottom {
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .sparkle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sparkle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .btn-pink {
+            background: linear-gradient(135deg, #f48fb1 0%, #ec407a 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-pink:hover {
+            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(236, 64, 122, 0.4);
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border: 2px solid #ec407a;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: linear-gradient(135deg, #ec407a 0%, #f48fb1 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        nav {
+            backdrop-filter: blur(10px);
+            background: rgba(252, 228, 236, 0.9);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(236, 64, 122, 0.8), rgba(244, 143, 177, 0.8));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .heart-float {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: heartFloat 4s ease-in-out;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) scale(1.5);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 px-6 py-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="logo-text flex gap-2 text-3xl font-bold gradient-text">
+             <img src="./2.jpg" alt="logo" class="w-10">   <i class="fas fa-sparkles"></i> Ores
+            </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-pink-600 hover:text-pink-800 font-semibold transition">Home</a>
+                <a href="#about" class="text-pink-600 hover:text-pink-800 font-semibold transition">About</a>
+                <a href="#services" class="text-pink-600 hover:text-pink-800 font-semibold transition">Services</a>
+                <a href="#gallery" class="text-pink-600 hover:text-pink-800 font-semibold transition">Gallery</a>
+                <a href="#contact" class="text-pink-600 hover:text-pink-800 font-semibold transition">Contact</a>
+            </div>
+            <button class="md:hidden text-pink-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="slide-in-left animate-element">
+                <h2 class="text-5xl md:text-7xl font-bold text-pink-600 mb-4">
+                    Hi! I'm <span class="gradient-text">Ores</span> <i class="fas fa-star"></i>
+                </h2>
+                <p class="text-2xl md:text-3xl text-pink-400 mb-6 font-semibold">
+                    E-Girl Developer & Artist <br>(Anime , VTuber , 2d , 3d)
+                </p>
+                <p class="text-lg text-gray-700 mb-8 leading-relaxed">
+                    <i class="fas fa-user"></i> 21 | <i class="fas fa-map-marker-alt"></i> London, UK | <i class="fas fa-graduation-cap"></i> BSc Computer Science<br>
+                    Creating magical websites & kawaii art <i class="fas fa-heart"></i>
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#gallery" class="btn-pink text-white px-8 py-3 rounded-full font-semibold">
+                        <i class="fas fa-palette"></i> View My Art
+                    </a>
+                    <a href="#contact" class="border-2 border-pink-400 text-pink-600 px-8 py-3 rounded-full font-semibold hover:bg-pink-50 transition">
+                        <i class="fas fa-briefcase"></i> Let's Work!
+                    </a>
+                </div>
+            </div>
+            <div class="slide-in-right animate-element floating">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-pink-300 to-pink-500 rounded-full blur-3xl opacity-50"></div>
+                    <img src="./1.webp" 
+                         alt="Anime Character" 
+                         class="relative rounded-3xl shadow-2xl sparkle w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center gradient-text mb-16 slide-in-bottom animate-element">
+                <i class="fas fa-heart"></i> About Me <i class="fas fa-heart"></i>
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in-left animate-element">
+                    <img src="./3.png" 
+                         alt="Anime Workspace" 
+                         >
+                </div>
+                <div class="slide-in-right animate-element">
+                    <h3 class="text-3xl font-bold text-pink-600 mb-6">Your Friendly Neighborhood Creator</h3>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        I'm a passionate developer and artist who loves bringing digital dreams to life! 
+                        With a BSc in Computer Science focusing on Web Development, I create stunning websites 
+                        and beautiful anime-inspired art.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Based in London, I combine my technical skills with artistic creativity to deliver 
+                        unique and engaging experiences. Whether it's coding a responsive website or drawing 
+                        your favorite anime character, I pour my heart into every project! <i class="fas fa-heart text-pink-500"></i>
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">React.js</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Next.js</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">JavaScript</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Tailwind CSS</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Photoshop</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Illustrator</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Procreate</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Blender</span>
+                        <span class="skill-tag px-4 py-2 rounded-full font-semibold text-pink-600">Canva</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-6 bg-white bg-opacity-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center gradient-text mb-16 slide-in-bottom animate-element">
+                <i class="fas fa-star"></i> Services <i class="fas fa-star"></i>
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Web Development -->
+                <div class="card-hover bg-white rounded-3xl p-8 shadow-xl slide-in-left animate-element border-4 border-pink-200">
+                    <div class="text-6xl mb-4 text-pink-500"><i class="fas fa-laptop-code"></i></div>
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">Web Development</h3>
+                    <p class="text-gray-700 mb-6">
+                        Custom websites and web applications built with modern technologies like React, Next.js, 
+                        and Tailwind CSS. Responsive, fast, and beautiful!
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-pink-500"></i> Responsive Design</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Modern Frameworks</li>
+                        <li><i class="fas fa-check text-pink-500"></i> SEO Optimized</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Fast Performance</li>
+                    </ul>
+                </div>
+
+                <!-- 2D Art -->
+                <div class="card-hover bg-white rounded-3xl p-8 shadow-xl slide-in-bottom animate-element border-4 border-pink-200">
+                    <div class="text-6xl mb-4 text-pink-500"><i class="fas fa-palette"></i></div>
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">2D Anime Art</h3>
+                    <p class="text-gray-700 mb-6">
+                        Stunning 2D anime illustrations, character designs, and digital art created with 
+                        Photoshop, Illustrator, and Procreate.
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-pink-500"></i> Character Design</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Illustrations</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Digital Painting</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Custom Artwork</li>
+                    </ul>
+                </div>
+
+                <!-- 3D Art -->
+                <div class="card-hover bg-white rounded-3xl p-8 shadow-xl slide-in-right animate-element border-4 border-pink-200">
+                    <div class="text-6xl mb-4 text-pink-500"><i class="fas fa-cube"></i></div>
+                    <h3 class="text-2xl font-bold text-pink-600 mb-4">3D Modeling</h3>
+                    <p class="text-gray-700 mb-6">
+                        3D models and renders using Blender. Perfect for anime characters, props, 
+                        and stylized 3D art!
+                    </p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-pink-500"></i> Character Models</li>
+                        <li><i class="fas fa-check text-pink-500"></i> 3D Renders</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Texturing</li>
+                        <li><i class="fas fa-check text-pink-500"></i> Animation Ready</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold text-center gradient-text mb-16 slide-in-bottom animate-element">
+                <i class="fas fa-images"></i> My Gallery <i class="fas fa-images"></i>
+            </h2>
+            
+            <!-- Art Gallery -->
+            <h3 class="text-3xl font-bold text-pink-600 mb-8 slide-in-left animate-element">Art</h3>
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <div class="gallery-item slide-in-left animate-element">
+                    <img src="./1.jpeg" 
+                         alt="Anime Art 1" 
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="gallery-item slide-in-bottom animate-element">
+                    <img src="./2.jpeg" 
+                         alt="Anime Art 2" 
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="gallery-item slide-in-right animate-element">
+                    <img src="./3.jpeg" 
+                         alt="Anime Art 3" 
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="gallery-item slide-in-left animate-element">
+                    <img src="./4.jpeg" 
+                         alt="Anime Art 4" 
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="gallery-item slide-in-bottom animate-element">
+                    <img src="./5.jpeg" 
+                         alt="Anime Art 5" 
+                         class="w-full h-80 object-cover">
+                </div>
+                <div class="gallery-item slide-in-right animate-element">
+                    <img src="./SPOILER_image-4.png" 
+                         alt="Anime Art 6" 
+                         class="w-full h-80 object-cover">
+                </div>
+            </div>
+
+            <!-- Website Projects -->
+            <h3 class="text-3xl font-bold text-pink-600 mb-8 slide-in-left animate-element">Website Projects</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card-hover bg-white rounded-3xl overflow-hidden shadow-xl slide-in-left animate-element border-4 border-pink-200">
+                    <img src="./7.png" 
+                         alt="Website Project 1" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold text-pink-600 mb-2">Marketing Agency</h4>
+                        <p class="text-gray-700 mb-4">Daily Vertex</p>
+                    </div>
+                </div>
+                <div class="card-hover bg-white rounded-3xl overflow-hidden shadow-xl slide-in-right animate-element border-4 border-pink-200">
+                    <img src="./8.png" 
+                         alt="Website Project 2" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h4 class="text-2xl font-bold text-pink-600 mb-2">Marketing Agency</h4>
+                        <p class="text-gray-700 mb-4">Socially Wired</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-white bg-opacity-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-5xl font-bold text-center gradient-text mb-16 slide-in-bottom animate-element">
+                <i class="fas fa-envelope-open-text"></i> Let's Create Together! <i class="fas fa-envelope-open-text"></i>
+            </h2>
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 slide-in-bottom animate-element border-4 border-pink-200 text-center">
+                <div class="mb-8">
+                    <i class="fab fa-discord text-8xl text-pink-500 mb-6 inline-block"></i>
+                    <h3 class="text-3xl font-bold text-pink-600 mb-4">Contact Me on Discord</h3>
+                    <p class="text-xl text-gray-700 mb-8">
+                        Ready to work together? Hit me up on Discord!
+                    </p>
+                    <div class="bg-gradient-to-r from-pink-100 to-pink-50 rounded-2xl p-6 mb-8 inline-block">
+                        <p class="text-sm text-pink-600 font-semibold mb-2">Discord Username</p>
+                        <p class="text-3xl font-bold gradient-text">ores69.</p>
+                    </div>
+                </div>
+                <!-- <div class="pt-8 border-t-2 border-pink-200">
+                    <p class="text-gray-700 mb-4">Or find me on social media!</p>
+                    <div class="flex justify-center space-x-6 text-3xl">
+                        <a href="#" class="text-pink-400 hover:text-pink-600 transition transform hover:scale-110">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="#" class="text-pink-400 hover:text-pink-600 transition transform hover:scale-110">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-pink-400 hover:text-pink-600 transition transform hover:scale-110">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-pink-400 hover:text-pink-600 transition transform hover:scale-110">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-pink-400 hover:text-pink-600 transition transform hover:scale-110">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-pink-100 py-8 px-6 mt-20">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-pink-600 font-semibold text-lg mb-2">
+                Made with <i class="fas fa-heart text-pink-500"></i> by Ores
+            </p>
+            <p class="text-gray-600">
+                © 2024 Ores. All rights reserved. <i class="fas fa-sparkles text-pink-400"></i>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-element').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fun heart animation on click
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('div');
+            heart.innerHTML = '<i class="fas fa-heart"></i>';
+            heart.className = 'heart-float text-pink-500';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        });
+
+        // Add sparkle effect on hover for images
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('mouseenter', function() {
+                this.style.filter = 'brightness(1.1)';
+            });
+            img.addEventListener('mouseleave', function() {
+                this.style.filter = 'brightness(1)';
+            });
+        });
+    </script>
+</body>
+</html>
